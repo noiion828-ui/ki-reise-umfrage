@@ -21,7 +21,10 @@
   .sec-n{display:inline-flex;width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--c1),var(--c2));
     color:#fff;font-weight:800;align-items:center;justify-content:center;font-size:13px;margin-right:8px}
   .q{font-weight:800;font-size:17px;margin:0 0 2px}
-  .sub{font-size:13.5px;color:var(--mut);margin:0 0 8px}
+  .ls{font-size:11px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--c3),var(--c1));
+    border-radius:6px;padding:2px 8px;margin-left:6px;vertical-align:middle;letter-spacing:.2px}
+  .sub{font-size:13.5px;color:var(--mut);margin:0 0 10px}
+  .blab{font-weight:700;font-size:14px;margin:12px 0 5px;color:#43395f}
   .opts{display:flex;gap:8px;flex-wrap:wrap}
   .opt{padding:8px 14px;border-radius:999px;border:2px solid var(--line);background:#fff;cursor:pointer;
     font-size:14px;font-weight:600;color:var(--mut);transition:.14s;user-select:none}
@@ -31,10 +34,11 @@
   .opt.sel::before{content:"✓ "}
   textarea,input.txt{width:100%;background:#fff;color:var(--ink);border:2px solid var(--line);border-radius:13px;
     padding:11px;font:15px system-ui;resize:vertical}
-  textarea{min-height:64px;margin-top:9px}
+  textarea{min-height:52px;margin-top:6px}
+  textarea.big{min-height:96px}
   textarea:focus,input.txt:focus{outline:none;border-color:var(--c2)}
   textarea::placeholder{color:#b3abce;font-style:italic}
-  .hint{display:inline-block;font-size:12px;font-weight:700;color:var(--c1);background:#f0edff;border-radius:6px;padding:2px 8px;margin-left:6px}
+  .hint{display:inline-block;font-size:11.5px;font-weight:700;color:var(--c1);background:#f0edff;border-radius:6px;padding:1px 7px;margin-left:6px}
   .langbtn{display:inline-flex;border:2px solid #fff;border-radius:12px;overflow:hidden;margin-top:12px}
   .langbtn button{background:rgba(255,255,255,.25);color:#fff;border:none;padding:5px 14px;cursor:pointer;font-weight:800;font-size:13px}
   .langbtn button.on{background:#fff;color:var(--c1)}
@@ -54,15 +58,15 @@
 
 <header class="hero">
   <h1>🧭 <span data-de="Wir bauen ein KI-Reise-Tool — form es mit!" data-en="We are building an AI travel tool — shape it!">Wir bauen ein KI-Reise-Tool — form es mit!</span></h1>
-  <p class="hsub" data-de="~3 Min · kein Falsch · deine ehrliche Meinung zählt 💛" data-en="~3 min · no wrong answers · your honest take matters 💛">~3 Min · kein Falsch · deine ehrliche Meinung zählt 💛</p>
+  <p class="hsub" data-de="~4 Min · kein Falsch · du gestaltest mit, nicht nur bewerten 💛" data-en="~4 min · no wrong answers · you co-create, not just rate 💛">~4 Min · kein Falsch · du gestaltest mit 💛</p>
   <div class="langbtn"><button id="lang-de" class="on" onclick="setLang('de')">DE</button><button id="lang-en" onclick="setLang('en')">EN</button></div>
 </header>
 
 <div class="wrap">
 
 <div class="card intro">
-  <p style="margin:0" data-de="Stell dir vor, du planst eine Reise mit Freunden oder Familie. <b>Heute:</b> 7 Tabs offen, Budget in Excel, Wünsche im Chat-Chaos — am Ende plant eine:r alles allein. <br><br><b>Unser Tool soll das anders machen:</b> Es webt aus den Wünschen <b>aller</b> + Budget + Logistik <b>einen stimmigen Plan</b> — und sagt ehrlich, was zusammenpasst und wer mit wem was erleben will. Kurz: <b>mehr als Recherche-Links ohne Kohärenz</b> — ein KI-Reisebegleiter, der wirklich plant. <br><br>Damit wir es <b>für euch</b> bauen: sag uns, was dich begeistern würde. 🌟"
-     data-en="Imagine planning a trip with friends or family. <b>Today:</b> 7 tabs open, budget in Excel, wishes lost in chat — and one person ends up planning everything. <br><br><b>Our tool should do it differently:</b> it weaves <b>everyone's</b> wishes + budget + logistics into <b>one coherent plan</b> — and honestly says what fits and who wants to do what with whom. In short: <b>more than incoherent research links</b> — an AI travel companion that actually plans. <br><br>So we build it <b>for you</b>: tell us what would excite you. 🌟">
+  <p style="margin:0" data-de="Stell dir vor, du planst eine Reise mit Freunden oder Familie. <b>Heute:</b> 7 Tabs offen, Budget in Excel, Wünsche im Chat-Chaos — am Ende plant eine:r alles allein. <br><br><b>Unser Tool soll das anders machen:</b> Es webt aus den Wünschen <b>aller</b> + Budget + Logistik <b>einen stimmigen Plan</b> — und sagt ehrlich, was zusammenpasst. Kurz: <b>mehr als Recherche-Links ohne Kohärenz</b>. <br><br>Dieser Fragebogen ist nach <b>Liberating-Structures</b>-Logik gebaut: weniger ankreuzen, mehr <b>aus dir heraus</b>. Erste Eingebung zählt. 🌟"
+     data-en="Imagine planning a trip with friends or family. <b>Today:</b> 7 tabs open, budget in Excel, wishes lost in chat — and one person plans it all. <br><br><b>Our tool should do it differently:</b> it weaves <b>everyone's</b> wishes + budget + logistics into <b>one coherent plan</b> — and honestly says what fits. In short: <b>more than incoherent research links</b>. <br><br>This survey follows <b>Liberating Structures</b> logic: less ticking, more <b>from within you</b>. First instinct counts. 🌟">
      Stell dir vor, du planst eine Reise mit Freunden …</p>
 </div>
 
@@ -88,105 +92,144 @@
 let L='de';
 const $=s=>document.querySelector(s);
 const T=o=>(o&&(o[L]??o.de))||'';
-const ION_WA=''; // optional: Ions WhatsApp-Nr (z.B. '4915123456789'), leer = Kontakt selbst wählen
+const ION_WA=''; // Survey ist oeffentlich -> KEINE Nummer (Privacy). Freunde waehlen Kontakt selbst.
 
+// Blocks: {type:'chips',id,label?,opts[],max?,single?} | {type:'text',id,label?,ph,big?}
 const SECTIONS=[
- {id:'you', icon:'👤', q:{de:'Kurz zu dir',en:'A bit about you'}, sub:{de:'Wie & wie oft reist du? (alles antippen, was passt)',en:'How & how often do you travel? (tap all that fit)'},
-  opts:[
-   {id:'y_family',de:'meist mit Familie',en:'mostly family'},{id:'y_friends',de:'Freundesgruppe',en:'friend group'},
-   {id:'y_partner',de:'zu zweit',en:'as a couple'},{id:'y_solo',de:'solo',en:'solo'},
-   {id:'y_adv',de:'Typ Abenteuer',en:'adventure type'},{id:'y_chill',de:'Typ Erholung/Chill',en:'relax/chill type'},
-   {id:'y_culture',de:'Kultur',en:'culture'},{id:'y_nature',de:'Natur',en:'nature'},
-   {id:'y_retreat',de:'spirituell/Retreat',en:'spiritual/retreat'},{id:'y_budget',de:'Budget/Backpacking',en:'budget/backpacking'},
-   {id:'y_often',de:'reise oft (4+/Jahr)',en:'travel often (4+/yr)'},{id:'y_rare',de:'eher selten',en:'rather rarely'}],
-  ft:{de:'Sonst noch was zu deinem Reisestil?',en:'Anything else about your travel style?'}},
+ {id:'madtea', icon:'⚡', ls:'Mad Tea', q:{de:'Schnell aus dem Bauch',en:'Quick, from the gut'},
+  sub:{de:'Satz zu Ende denken — erste Eingebung, kein langes Grübeln.',en:'Finish the sentence — first instinct, no overthinking.'},
+  blocks:[
+   {type:'text',id:'mt1',label:{de:'Beim Reiseplanen mit anderen nervt mich am meisten, dass …',en:'When planning trips with others, what annoys me most is that …'},ph:{de:'…',en:'…'}},
+   {type:'text',id:'mt2',label:{de:'Die beste Reise meines Lebens war gut, weil …',en:'The best trip of my life was great because …'},ph:{de:'…',en:'…'}},
+   {type:'text',id:'mt3',label:{de:'Eine Reise-App würde mich sofort überzeugen, wenn …',en:'A travel app would win me over instantly if …'},ph:{de:'…',en:'…'}},
+   {type:'text',id:'mt4',label:{de:'Abschrecken würde mich, wenn …',en:'It would put me off if …'},ph:{de:'…',en:'…'}},
+   {type:'text',id:'mt5',label:{de:'Wenn die App EINE Sache perfekt könnte, wäre das …',en:'If the app did ONE thing perfectly, it would be …'},ph:{de:'…',en:'…'}},
+  ]},
 
- {id:'pain', icon:'😤', q:{de:'Was nervt dich am MEISTEN beim Reiseplanen?',en:'What annoys you MOST when planning trips?'}, sub:{de:'Gruppen-/Familienreisen — tipp alles an, was du kennst',en:'Group/family trips — tap all you recognise'},
-  opts:[
-   {id:'p_budget',de:'💶 Budget/Wer-zahlt-was unklar',en:'💶 budget/who-pays unclear'},
-   {id:'p_diff',de:'🙃 jede:r will was anderes',en:'🙃 everyone wants something different'},
-   {id:'p_one',de:'😮‍💨 eine:r plant alles allein',en:'😮‍💨 one person plans it all'},
-   {id:'p_tools',de:'🪟 zu viele Tools/Tabs',en:'🪟 too many tools/tabs'},
-   {id:'p_research',de:'🌀 Recherche-Overload, keine Kohärenz',en:'🌀 research overload, no coherence'},
-   {id:'p_fiction',de:'💸 unrealistische Pläne/Budget-Fiktion',en:'💸 unrealistic plans/budget fiction'},
-   {id:'p_booking',de:'🧾 Buchungs-Chaos',en:'🧾 booking chaos'},
-   {id:'p_forgot',de:'🐾 Hund/Kind/Diät vergessen',en:'🐾 dog/kid/diet forgotten'},
-   {id:'p_touri',de:'📸 Standard-Touri statt echte Erlebnisse',en:'📸 standard tourist, not real experiences'}],
-  ft:{de:'Was nervt dich sonst? (Freitext)',en:'What else annoys you? (free text)'}},
+ {id:'what3', icon:'🪜', ls:'What³', q:{de:'Vom Erleben zur Lösung',en:'From experience to solution'},
+  sub:{de:'Drei Stufen: Was ist? → Was bedeutet das? → Was nun?',en:'Three steps: What is? → So what? → Now what?'},
+  blocks:[
+   {type:'chips',id:'w_what',label:{de:'WAS erlebst du heute beim Gruppen-Reiseplanen? (antippen, was passt)',en:'WHAT do you experience today planning group trips? (tap what fits)'},opts:[
+     {id:'budget',de:'💶 Budget/Wer-zahlt-was unklar',en:'💶 budget/who-pays unclear'},
+     {id:'diff',de:'🙃 jede:r will was anderes',en:'🙃 everyone wants something else'},
+     {id:'one',de:'😮‍💨 eine:r plant alles allein',en:'😮‍💨 one person plans it all'},
+     {id:'tools',de:'🪟 zu viele Tools/Tabs',en:'🪟 too many tools/tabs'},
+     {id:'research',de:'🌀 Recherche-Overload, keine Kohärenz',en:'🌀 research overload, no coherence'},
+     {id:'fiction',de:'💸 unrealistische Pläne',en:'💸 unrealistic plans'},
+     {id:'forgot',de:'🐾 Hund/Kind/Diät vergessen',en:'🐾 dog/kid/diet forgotten'},
+     {id:'touri',de:'📸 Standard-Touri',en:'📸 standard tourist'}]},
+   {type:'text',id:'w_sowhat',label:{de:'SO WHAT — was bedeutet das? Was kostet es dich wirklich (Zeit/Nerven/Streit)?',en:'SO WHAT — what does it mean? What does it really cost you (time/nerves/conflict)?'},ph:{de:'…',en:'…'}},
+   {type:'chips',id:'w_now',label:{de:'NOW WHAT — was sollte die App also konkret tun? (antippen + ergänzen)',en:'NOW WHAT — so what should the app actually do? (tap + add)'},opts:[
+     {id:'budget',de:'💶 ehrliches Budget + Wer-zahlt-was',en:'💶 honest budget + who-pays'},
+     {id:'plan',de:'🧩 Wünsche → ein stimmiger Plan',en:'🧩 wishes → one coherent plan'},
+     {id:'match',de:'🔗 Matchmaking wer-mit-wem',en:'🔗 matchmaking who-with-whom'},
+     {id:'real',de:'🪞 Reality-Check',en:'🪞 reality-check'},
+     {id:'ai',de:'🤖 KI-Tagesplan',en:'🤖 AI day plan'},
+     {id:'filter',de:'🐾 Hund/Kind/Diät als Filter',en:'🐾 dog/kid/diet as filter'},
+     {id:'local',de:'🗺️ Insider statt Standard',en:'🗺️ insider not standard'},
+     {id:'pack',de:'🧳 Packen/Logistik/Recht',en:'🧳 packing/logistics/legal'},
+     {id:'async',de:'👯 gemeinsam ausfüllen',en:'👯 fill in together'}]},
+   {type:'text',id:'w_nowft',label:{de:'… und was noch? (frei)',en:'… and what else? (free)'},ph:{de:'…',en:'…'}},
+  ]},
 
- {id:'feat', icon:'✨', q:{de:'Welche Funktionen fändest du SUPER spannend?',en:'Which features would you find SUPER exciting?'}, sub:{de:'Tipp alles an, was dich zieht',en:'Tap everything that appeals to you'},
-  opts:[
-   {id:'f_budget',de:'💶 Ehrliches Budget mit Wer-zahlt-was',en:'💶 honest budget with who-pays'},
-   {id:'f_plan',de:'🧩 alle Wünsche → ein stimmiger Plan',en:'🧩 all wishes → one coherent plan'},
-   {id:'f_match',de:'🔗 Matchmaking: wer macht was mit wem',en:'🔗 matchmaking: who does what with whom'},
-   {id:'f_real',de:'🪞 Reality-Check (warnt vor Budget-Fiktion)',en:'🪞 reality-check (warns of budget fiction)'},
-   {id:'f_ai',de:'🤖 KI baut den Tagesplan',en:'🤖 AI builds the day plan'},
-   {id:'f_filter',de:'🐾 Hund/Kind/Diät/Termine als harte Filter',en:'🐾 dog/kid/diet/dates as hard filters'},
-   {id:'f_local',de:'🗺️ lokale Insider-Erlebnisse statt Standard',en:'🗺️ local insider experiences, not standard'},
-   {id:'f_pack',de:'🧳 Auto-Packliste + Logistik + Recht',en:'🧳 auto packing list + logistics + legal'},
-   {id:'f_async',de:'👯 gemeinsam async ausfüllen',en:'👯 fill in together, asynchronously'},
-   {id:'f_save',de:'💸 Spar-Hebel & Geldquellen-Logik',en:'💸 saving levers & funding logic'},
-   {id:'f_lang',de:'🌐 mehrsprachig',en:'🌐 multilingual'},
-   {id:'f_privacy',de:'🔒 Privatsphäre/Verschlüsselung',en:'🔒 privacy/encryption'}],
-  ft:{de:'Eine Funktion, die du dir wünschst und die hier fehlt?',en:'A feature you wish for that is missing here?'}},
+ {id:'minspecs', icon:'🎯', ls:'Min Specs', q:{de:'Muss vs. Deko',en:'Must vs. nice-to-have'},
+  sub:{de:'Das kleinste Set, das wirklich zählt.',en:'The smallest set that truly matters.'},
+  blocks:[
+   {type:'chips',id:'ms_must',max:3,label:{de:'Was MUSS die App können (max 3), sonst ist sie für dich wertlos?',en:'What MUST the app do (max 3), or it is worthless to you?'},opts:[
+     {id:'budget',de:'💶 Budget/Wer-zahlt-was',en:'💶 budget/who-pays'},
+     {id:'plan',de:'🧩 Wünsche → ein Plan',en:'🧩 wishes → one plan'},
+     {id:'match',de:'🔗 Matchmaking',en:'🔗 matchmaking'},
+     {id:'real',de:'🪞 Reality-Check',en:'🪞 reality-check'},
+     {id:'ai',de:'🤖 KI-Tagesplan',en:'🤖 AI day plan'},
+     {id:'local',de:'🗺️ Insider-Erlebnisse',en:'🗺️ insider experiences'},
+     {id:'async',de:'👯 gemeinsam ausfüllen',en:'👯 fill in together'},
+     {id:'simple',de:'🪶 super einfach/schnell',en:'🪶 super simple/fast'}]},
+   {type:'text',id:'ms_nice',label:{de:'Was ist nur „nice-to-have" / könnte man getrost weglassen?',en:'What is just nice-to-have / could safely be left out?'},ph:{de:'…',en:'…'}},
+  ]},
 
- {id:'top', icon:'🥇', q:{de:'Deine Top 3',en:'Your top 3'}, sub:{de:'Wenn nur 3 Dinge umgesetzt werden — welche müssen es sein?',en:'If only 3 things get built — which must they be?'}, max:3,
-  opts:[
-   {id:'t_budget',de:'💶 Budget/Wer-zahlt-was',en:'💶 budget/who-pays'},
-   {id:'t_plan',de:'🧩 Wünsche → ein Plan',en:'🧩 wishes → one plan'},
-   {id:'t_match',de:'🔗 Matchmaking',en:'🔗 matchmaking'},
-   {id:'t_real',de:'🪞 Reality-Check',en:'🪞 reality-check'},
-   {id:'t_ai',de:'🤖 KI-Tagesplan',en:'🤖 AI day plan'},
-   {id:'t_local',de:'🗺️ Insider-Erlebnisse',en:'🗺️ insider experiences'},
-   {id:'t_async',de:'👯 gemeinsam ausfüllen',en:'👯 fill in together'},
-   {id:'t_pack',de:'🧳 Logistik/Packen/Recht',en:'🧳 logistics/packing/legal'}],
-  ft:{de:'Warum genau diese 3?',en:'Why exactly these 3?'}},
+ {id:'ninewhys', icon:'❓', ls:'Nine Whys', q:{de:'Warum eigentlich?',en:'But why?'},
+  sub:{de:'Eine Funktion — dann zweimal tiefer fragen.',en:'One feature — then dig twice deeper.'},
+  blocks:[
+   {type:'chips',id:'nw_top',single:true,label:{de:'Deine WICHTIGSTE Funktion (genau eine):',en:'Your MOST important feature (pick one):'},opts:[
+     {id:'budget',de:'💶 Budget/Wer-zahlt-was',en:'💶 budget/who-pays'},
+     {id:'plan',de:'🧩 Wünsche → ein Plan',en:'🧩 wishes → one plan'},
+     {id:'match',de:'🔗 Matchmaking',en:'🔗 matchmaking'},
+     {id:'real',de:'🪞 Reality-Check',en:'🪞 reality-check'},
+     {id:'ai',de:'🤖 KI-Tagesplan',en:'🤖 AI day plan'},
+     {id:'local',de:'🗺️ Insider-Erlebnisse',en:'🗺️ insider experiences'}]},
+   {type:'text',id:'nw_why1',label:{de:'Warum ist dir genau DAS wichtig?',en:'Why is exactly THAT important to you?'},ph:{de:'…',en:'…'}},
+   {type:'text',id:'nw_why2',label:{de:'Und warum ist DAS wichtig? (eine Stufe tiefer)',en:'And why is THAT important? (one level deeper)'},ph:{de:'…',en:'…'}},
+  ]},
 
- {id:'ai', icon:'🤖', q:{de:'Die KI-Frage',en:'The AI question'}, sub:{de:'Was soll die KI können, das reine Google-Recherche NICHT kann?',en:'What should the AI do that plain Google research can NOT?'},
-  opts:[
-   {id:'a_coherent',de:'aus Chaos EINEN kohärenten Plan machen',en:'turn chaos into ONE coherent plan'},
-   {id:'a_reconcile',de:'Wünsche der Gruppe versöhnen',en:'reconcile the group’s wishes'},
-   {id:'a_remember',de:'an meine Constraints erinnern (Budget/Hund/Diät)',en:'remember my constraints (budget/dog/diet)'},
-   {id:'a_honest',de:'ehrlich sein (Gegenpol statt Schönrederei)',en:'be honest (counter-voice, not sugar-coating)'},
-   {id:'a_learn',de:'meinen Geschmack über Zeit lernen',en:'learn my taste over time'},
-   {id:'a_book',de:'wirklich organisieren/buchen, nicht nur vorschlagen',en:'actually organise/book, not just suggest'},
-   {id:'a_local',de:'lokale/echte statt generische Tipps',en:'local/real instead of generic tips'}],
-  ft:{de:'Was wäre dein „Wow, das kann nur KI“-Moment?',en:'What would be your “wow, only AI can do this” moment?'}},
+ {id:'triz', icon:'😈', ls:'TRIZ', q:{de:'Sabotage-Spiel',en:'Sabotage game'},
+  sub:{de:'Wie müsste die App sein, damit sie dich GARANTIERT vergrault?',en:'How would the app have to be to LOSE you for sure?'},
+  blocks:[
+   {type:'chips',id:'tz',label:{de:'Tipp alle Garantie-Vergraulungen an:',en:'Tap all guaranteed deal-breakers:'},opts:[
+     {id:'complex',de:'🤯 zu kompliziert',en:'🤯 too complicated'},
+     {id:'spam',de:'📨 spammt mich',en:'📨 spams me'},
+     {id:'data',de:'🕵️ verkauft meine Daten',en:'🕵️ sells my data'},
+     {id:'patronize',de:'🙄 bevormundet mich',en:'🙄 patronises me'},
+     {id:'steps',de:'🪜 zu viele Schritte/Anmeldung',en:'🪜 too many steps/sign-up'},
+     {id:'generic',de:'🥱 generische 08/15-Tipps',en:'🥱 generic cookie-cutter tips'},
+     {id:'unreal',de:'🎩 unrealistische Vorschläge',en:'🎩 unrealistic suggestions'},
+     {id:'forceall',de:'👮 zwingt alle zur Nutzung',en:'👮 forces everyone to use it'},
+     {id:'pricey',de:'💸 zu teuer',en:'💸 too expensive'}]},
+   {type:'text',id:'tz_ft',label:{de:'Welche dieser Sabotagen schleichen sich heute schon in echte Apps ein?',en:'Which of these sabotages already creep into real apps today?'},ph:{de:'…',en:'…'}},
+  ]},
 
- {id:'magic', icon:'💛', q:{de:'Magie, Bedenken & Nutzung',en:'Magic, concerns & usage'}, sub:{de:'Letzte Fragen — ehrlich, gern auch kritisch',en:'Final questions — honest, critical welcome'},
-  opts:[
-   {id:'u_yes',de:'✅ würde ich sofort nutzen',en:'✅ I would use it right away'},
-   {id:'u_ifgroup',de:'🤝 ja, wenn meine Gruppe mitzieht',en:'🤝 yes, if my group joins in'},
-   {id:'u_maybe',de:'🤔 vielleicht',en:'🤔 maybe'},
-   {id:'u_no',de:'🙅 eher nein',en:'🙅 probably not'},
-   {id:'pay_no',de:'💰 würde nichts zahlen',en:'💰 would not pay'},
-   {id:'pay_pro',de:'💰 für Pro-Features',en:'💰 for pro features'},
-   {id:'pay_trip',de:'💰 einmalig pro Reise',en:'💰 one-off per trip'},
-   {id:'pay_org',de:'💰 als Organizer/Retreat-Tool',en:'💰 as an organiser/retreat tool'}],
-  ft:{de:'Wenn die App EINE Sache perfekt könnte — welche? Und was würde dich abschrecken/nerven?',en:'If the app did ONE thing perfectly — which? And what would put you off / annoy you?'}},
+ {id:'apprec', icon:'💛', ls:'Appreciative', q:{de:'Deine beste Reise',en:'Your best trip'},
+  sub:{de:'Eine kleine Geschichte sagt mehr als 10 Häkchen.',en:'A little story says more than 10 ticks.'},
+  blocks:[
+   {type:'text',id:'ap',big:true,label:{de:'Erzähl von der besten Reise/Planung, die du je hattest — was machte sie gut? Welche Rolle spielten Planung vs. Spontaneität?',en:'Tell me about the best trip/planning you ever had — what made it great? What role did planning vs. spontaneity play?'},ph:{de:'…',en:'…'}},
+  ]},
+
+ {id:'usage', icon:'🧮', ls:'Realitäts-Check', q:{de:'Würdest du es nutzen?',en:'Would you use it?'},
+  sub:{de:'Ehrlich — auch „nein" hilft.',en:'Honest — even a “no” helps.'},
+  blocks:[
+   {type:'chips',id:'u_use',label:{de:'Nutzung:',en:'Usage:'},opts:[
+     {id:'yes',de:'✅ sofort',en:'✅ right away'},
+     {id:'ifgroup',de:'🤝 wenn meine Gruppe mitzieht',en:'🤝 if my group joins'},
+     {id:'maybe',de:'🤔 vielleicht',en:'🤔 maybe'},
+     {id:'no',de:'🙅 eher nein',en:'🙅 probably not'}]},
+   {type:'chips',id:'u_pay',label:{de:'Zahlung:',en:'Payment:'},opts:[
+     {id:'none',de:'💰 nichts',en:'💰 nothing'},
+     {id:'pro',de:'💰 Pro-Features',en:'💰 pro features'},
+     {id:'trip',de:'💰 einmalig pro Reise',en:'💰 one-off per trip'},
+     {id:'org',de:'💰 als Organizer-Tool',en:'💰 as organiser tool'}]},
+   {type:'text',id:'u_ft',label:{de:'Sonst noch was auf dem Herzen?',en:'Anything else on your mind?'},ph:{de:'…',en:'…'}},
+  ]},
 ];
 
-let pick={}; SECTIONS.forEach(s=>pick[s.id]={});
-let ft={}; SECTIONS.forEach(s=>ft[s.id]='');
-let who='';
+let pick={}; let text={};
+function initState(){ SECTIONS.forEach(s=>s.blocks.forEach(b=>{ if(b.type==='chips'){if(!pick[b.id])pick[b.id]={};} else {if(text[b.id]===undefined)text[b.id]='';} })); }
+initState();
 
-function render(){
-  $('#sections').innerHTML=SECTIONS.map((s,i)=>{
-    const p=pick[s.id];
-    const hint = s.max ? `<span class="hint">${L==='de'?'max. '+s.max:'max '+s.max}</span>` : '';
-    return `<div class="card">
-      <p class="q"><span class="sec-n">${i+1}</span>${s.icon} ${T(s.q)}${hint}</p>
-      <p class="sub">${T(s.sub)}</p>
-      <div class="opts">${s.opts.map(o=>`<span class="opt ${p[o.id]?'sel':''}" onclick="toggle('${s.id}','${o.id}')">${T(o)}</span>`).join('')}</div>
-      ${s.ft?`<textarea data-ft="${s.id}" oninput="onFt('${s.id}',this.value)" placeholder="${T(s.ft).replace(/"/g,'&quot;')}">${(ft[s.id]||'').replace(/</g,'&lt;')}</textarea>`:''}
-    </div>`;}).join('');
+function blockHTML(b){
+  if(b.type==='chips'){
+    const p=pick[b.id]||{};
+    const hint=b.max?`<span class="hint">${L==='de'?'max. '+b.max:'max '+b.max}</span>`:(b.single?`<span class="hint">${L==='de'?'genau 1':'pick 1'}</span>`:'');
+    return `${b.label?`<p class="blab">${T(b.label)}${hint}</p>`:''}
+      <div class="opts">${b.opts.map(o=>`<span class="opt ${p[o.id]?'sel':''}" onclick="toggle('${b.id}','${o.id}')">${T(o)}</span>`).join('')}</div>`;
+  }
+  return `${b.label?`<label class="blab">${T(b.label)}</label>`:''}
+    <textarea class="${b.big?'big':''}" oninput="onText('${b.id}',this.value)" placeholder="${T(b.ph).replace(/"/g,'&quot;')}">${(text[b.id]||'').replace(/</g,'&lt;')}</textarea>`;
 }
-function toggle(sid,oid){
-  const s=SECTIONS.find(x=>x.id===sid), p=pick[sid];
-  if(!p[oid] && s.max){ const n=Object.keys(p).filter(k=>p[k]).length; if(n>=s.max){ flash(L==='de'?('max. '+s.max+'!'):('max '+s.max+'!')); return; } }
+function render(){
+  $('#sections').innerHTML=SECTIONS.map((s,i)=>`
+    <div class="card">
+      <p class="q"><span class="sec-n">${i+1}</span>${s.icon} ${T(s.q)} <span class="ls">LS · ${s.ls}</span></p>
+      ${s.sub?`<p class="sub">${T(s.sub)}</p>`:''}
+      ${s.blocks.map(blockHTML).join('')}
+    </div>`).join('');
+}
+function blockMeta(bid){ for(const s of SECTIONS){ const b=s.blocks.find(x=>x.id===bid); if(b)return b; } return null; }
+function toggle(bid,oid){
+  const b=blockMeta(bid), p=pick[bid];
+  if(b.single){ const on=p[oid]; for(const k in p)p[k]=false; p[oid]=!on; render(); save_silent(); return; }
+  if(!p[oid] && b.max){ const n=Object.keys(p).filter(k=>p[k]).length; if(n>=b.max){ flash(L==='de'?('max. '+b.max+'!'):('max '+b.max+'!')); return; } }
   p[oid]=!p[oid]; render(); save_silent();
 }
-function onFt(sid,v){ ft[sid]=v; save_silent(); }
+function onText(bid,v){ text[bid]=v; save_silent(); }
 
 function setLang(l){
   L=l; document.documentElement.lang=l;
@@ -194,26 +237,27 @@ function setLang(l){
   document.querySelectorAll('[data-de]').forEach(el=>{ el.innerHTML=el.getAttribute('data-'+l)||el.getAttribute('data-de'); });
   render(); save_silent();
 }
-function optLabel(sid,oid){ const s=SECTIONS.find(x=>x.id===sid); const o=s.opts.find(x=>x.id===oid); return o?T(o):oid; }
+function optLabel(bid,oid){ const b=blockMeta(bid); const o=b.opts.find(x=>x.id===oid); return o?T(o):oid; }
+function shortLabel(b){ return (T(b.label)||'').replace(/\s*\(.*?\)\s*/g,'').replace(/ —.*$/,'').replace(/[:?!.]\s*$/,'').trim(); }
 function buildSummary(){
-  who=$('#who').value.trim();
-  let out=(L==='de'?'🧭 KI-Reise-Tool — Feedback':'🧭 AI travel tool — feedback')+(who?(' · '+who):'')+'\n\n';
+  const who=$('#who').value.trim();
+  let out=(L==='de'?'🧭 KI-Reise-Tool — Feedback (LS)':'🧭 AI travel tool — feedback (LS)')+(who?(' · '+who):'')+'\n\n';
   SECTIONS.forEach((s,i)=>{
-    const p=pick[s.id]; const picked=Object.keys(p).filter(k=>p[k]).map(k=>optLabel(s.id,k));
-    const f=(ft[s.id]||'').trim();
-    if(!picked.length && !f) return;
-    out+=(i+1)+'. '+T(s.q)+'\n';
-    if(picked.length) out+='• '+picked.join(' · ')+'\n';
-    if(f) out+='✍️ '+f.replace(/\n/g,' / ')+'\n';
-    out+='\n';
+    let body='';
+    s.blocks.forEach(b=>{
+      if(b.type==='chips'){ const p=pick[b.id]||{}; const sel=Object.keys(p).filter(k=>p[k]).map(k=>optLabel(b.id,k));
+        if(sel.length) body+='• '+(b.label?shortLabel(b)+': ':'')+sel.join(' · ')+'\n'; }
+      else { const v=(text[b.id]||'').trim(); if(v) body+='✍️ '+shortLabel(b)+': '+v.replace(/\n/g,' / ')+'\n'; }
+    });
+    if(body){ out+=(i+1)+'. '+T(s.q)+' [LS·'+s.ls+']\n'+body+'\n'; }
   });
   return out;
 }
 async function shareFeedback(){
-  save_silent(); const text=buildSummary();
-  if(navigator.share){ try{ await navigator.share({title:(L==='de'?'KI-Reise-Tool Feedback':'AI travel tool feedback'),text}); flash(L==='de'?'✅ geteilt':'✅ shared'); return; }catch(e){ if(e&&e.name==='AbortError')return; } }
+  save_silent(); const t=buildSummary();
+  if(navigator.share){ try{ await navigator.share({title:(L==='de'?'KI-Reise-Tool Feedback':'AI travel tool feedback'),text:t}); flash(L==='de'?'✅ geteilt':'✅ shared'); return; }catch(e){ if(e&&e.name==='AbortError')return; } }
   const base=ION_WA?('https://wa.me/'+ION_WA+'?text='):'https://wa.me/?text=';
-  window.open(base+encodeURIComponent(text),'_blank'); flash(L==='de'?'📱 WhatsApp öffnet…':'📱 opening WhatsApp…');
+  window.open(base+encodeURIComponent(t),'_blank'); flash(L==='de'?'📱 WhatsApp öffnet…':'📱 opening WhatsApp…');
 }
 async function copyFeedback(){ const t=buildSummary();
   try{ await navigator.clipboard.writeText(t); flash(L==='de'?'📋 Kopiert! In WhatsApp/Chat einfügen.':'📋 Copied! Paste into WhatsApp/chat.'); }
@@ -221,18 +265,19 @@ async function copyFeedback(){ const t=buildSummary();
 function downloadJSON(){ const b=new Blob([JSON.stringify(collect(),null,2)],{type:'application/json'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='ki-reise-feedback.json'; a.click(); flash(L==='de'?'📤 Datei erstellt':'📤 file created'); }
 
-const KEY='ki-reise-umfrage-2026';
-function collect(){ return {L,who:$('#who').value,pick,ft}; }
+const KEY='ki-reise-umfrage-ls-2026';
+function collect(){ return {L,who:$('#who').value,pick,text}; }
 function apply(s){ if(!s)return;
   if(s.who)$('#who').value=s.who;
-  if(s.pick)SECTIONS.forEach(x=>{ if(s.pick[x.id])pick[x.id]=s.pick[x.id]; });
-  if(s.ft)ft=Object.assign(ft,s.ft);
+  if(s.pick)pick=Object.assign(pick,s.pick);
+  if(s.text)text=Object.assign(text,s.text);
+  initState();
   if(s.L&&s.L!==L){setLang(s.L);} else {render();} }
 function save_silent(){ try{localStorage.setItem(KEY,JSON.stringify(collect()));}catch(e){} }
 function saveState(){ save_silent(); flash(L==='de'?'💾 Gesichert':'💾 Saved'); }
 function flash(t){ $('#msg').textContent=t; setTimeout(()=>{$('#msg').textContent='';},1600); }
 
-render();
+setLang('de');
 $('#who').addEventListener('input',save_silent);
 try{const s=JSON.parse(localStorage.getItem(KEY)); if(s)apply(s);}catch(e){}
 </script>
