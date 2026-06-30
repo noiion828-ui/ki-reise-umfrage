@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Umfrage · KI-Reise-Tool — deine Meinung</title>
+<style>
+  :root{--c1:#6a5cff;--c2:#2bd1c4;--c3:#ff6f91;--c4:#ffb86c;
+    --ink:#26203a;--mut:#6b6386;--card:#fff;--line:#ece7f6;--bg1:#f3f0ff;--bg2:#eafbf8}
+  *{box-sizing:border-box}
+  body{margin:0;font:16px/1.6 system-ui,'Segoe UI',sans-serif;color:var(--ink);
+    background:linear-gradient(165deg,var(--bg1),#fdf3f1 55%,var(--bg2));min-height:100vh;padding:0 0 120px}
+  .wrap{max-width:740px;margin:0 auto;padding:18px}
+  header.hero{background:linear-gradient(135deg,var(--c1),var(--c3) 60%,var(--c4));color:#fff;
+    padding:34px 0 30px;text-align:center;border-radius:0 0 26px 26px;box-shadow:0 12px 30px rgba(106,92,255,.25)}
+  h1{font-size:27px;margin:0 0 6px}
+  .hsub{font-size:14.5px;opacity:.95;margin:0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px;margin:14px 0;
+    box-shadow:0 6px 18px rgba(106,92,255,.06)}
+  .intro{background:linear-gradient(135deg,#fff,#f7f4ff);border:2px dashed var(--c1)}
+  .sec-n{display:inline-flex;width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--c1),var(--c2));
+    color:#fff;font-weight:800;align-items:center;justify-content:center;font-size:13px;margin-right:8px}
+  .q{font-weight:800;font-size:17px;margin:0 0 2px}
+  .sub{font-size:13.5px;color:var(--mut);margin:0 0 8px}
+  .opts{display:flex;gap:8px;flex-wrap:wrap}
+  .opt{padding:8px 14px;border-radius:999px;border:2px solid var(--line);background:#fff;cursor:pointer;
+    font-size:14px;font-weight:600;color:var(--mut);transition:.14s;user-select:none}
+  .opt:hover{border-color:var(--c2);transform:translateY(-1px)}
+  .opt.sel{background:linear-gradient(135deg,var(--c1),var(--c2));border-color:transparent;color:#fff;
+    box-shadow:0 4px 12px rgba(43,209,196,.3);transform:translateY(-1px) scale(1.02)}
+  .opt.sel::before{content:"✓ "}
+  textarea,input.txt{width:100%;background:#fff;color:var(--ink);border:2px solid var(--line);border-radius:13px;
+    padding:11px;font:15px system-ui;resize:vertical}
+  textarea{min-height:64px;margin-top:9px}
+  textarea:focus,input.txt:focus{outline:none;border-color:var(--c2)}
+  textarea::placeholder{color:#b3abce;font-style:italic}
+  .hint{display:inline-block;font-size:12px;font-weight:700;color:var(--c1);background:#f0edff;border-radius:6px;padding:2px 8px;margin-left:6px}
+  .langbtn{display:inline-flex;border:2px solid #fff;border-radius:12px;overflow:hidden;margin-top:12px}
+  .langbtn button{background:rgba(255,255,255,.25);color:#fff;border:none;padding:5px 14px;cursor:pointer;font-weight:800;font-size:13px}
+  .langbtn button.on{background:#fff;color:var(--c1)}
+  .savebar{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.97);backdrop-filter:blur(8px);
+    border-top:1px solid var(--line);z-index:50}
+  .savebar .inner{max-width:740px;margin:0 auto;padding:11px 16px;display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+  .btn{border:none;border-radius:12px;padding:11px 16px;font-weight:800;cursor:pointer;font-size:14px;color:#fff;
+    background:linear-gradient(135deg,var(--c1),var(--c3));box-shadow:0 4px 12px rgba(106,92,255,.28)}
+  .btn.wa{background:linear-gradient(135deg,#25D366,#128C7E)}
+  .btn.ghost{background:#fff;color:var(--c1);border:2px solid var(--line);box-shadow:none}
+  .msg{font-weight:800;color:var(--c2)}
+  .heart{font-size:13px;color:var(--mut);text-align:center;margin-top:18px}
+  label.fld{font-weight:700;font-size:14px;display:block;margin:0 0 5px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>🧭 <span data-de="Wir bauen ein KI-Reise-Tool — form es mit!" data-en="We are building an AI travel tool — shape it!">Wir bauen ein KI-Reise-Tool — form es mit!</span></h1>
+  <p class="hsub" data-de="~3 Min · kein Falsch · deine ehrliche Meinung zählt 💛" data-en="~3 min · no wrong answers · your honest take matters 💛">~3 Min · kein Falsch · deine ehrliche Meinung zählt 💛</p>
+  <div class="langbtn"><button id="lang-de" class="on" onclick="setLang('de')">DE</button><button id="lang-en" onclick="setLang('en')">EN</button></div>
+</header>
+
+<div class="wrap">
+
+<div class="card intro">
+  <p style="margin:0" data-de="Stell dir vor, du planst eine Reise mit Freunden oder Familie. <b>Heute:</b> 7 Tabs offen, Budget in Excel, Wünsche im Chat-Chaos — am Ende plant eine:r alles allein. <br><br><b>Unser Tool soll das anders machen:</b> Es webt aus den Wünschen <b>aller</b> + Budget + Logistik <b>einen stimmigen Plan</b> — und sagt ehrlich, was zusammenpasst und wer mit wem was erleben will. Kurz: <b>mehr als Recherche-Links ohne Kohärenz</b> — ein KI-Reisebegleiter, der wirklich plant. <br><br>Damit wir es <b>für euch</b> bauen: sag uns, was dich begeistern würde. 🌟"
+     data-en="Imagine planning a trip with friends or family. <b>Today:</b> 7 tabs open, budget in Excel, wishes lost in chat — and one person ends up planning everything. <br><br><b>Our tool should do it differently:</b> it weaves <b>everyone's</b> wishes + budget + logistics into <b>one coherent plan</b> — and honestly says what fits and who wants to do what with whom. In short: <b>more than incoherent research links</b> — an AI travel companion that actually plans. <br><br>So we build it <b>for you</b>: tell us what would excite you. 🌟">
+     Stell dir vor, du planst eine Reise mit Freunden …</p>
+</div>
+
+<div class="card">
+  <label class="fld" data-de="✍️ Dein Name / Kürzel (damit Ion weiß, von wem das Feedback ist)" data-en="✍️ Your name / initials (so Ion knows whose feedback this is)">✍️ Dein Name / Kürzel</label>
+  <input class="txt" id="who" placeholder="z. B. Mara">
+</div>
+
+<div id="sections"></div>
+
+<p class="heart" data-de="Danke, dass du mitbaust 💛" data-en="Thanks for helping build this 💛">Danke, dass du mitbaust 💛</p>
+</div>
+
+<div class="savebar"><div class="inner">
+  <span id="msg" class="msg"></span><span style="flex:1"></span>
+  <button class="btn wa" onclick="shareFeedback()" data-de="📱 An Ion (WhatsApp)" data-en="📱 To Ion (WhatsApp)">📱 An Ion</button>
+  <button class="btn ghost" onclick="copyFeedback()" data-de="📋 Kopieren" data-en="📋 Copy">📋 Kopieren</button>
+  <button class="btn ghost" onclick="downloadJSON()" data-de="📤 Datei" data-en="📤 File">📤 Datei</button>
+  <button class="btn ghost" onclick="saveState()" data-de="💾 Sichern" data-en="💾 Save">💾 Sichern</button>
+</div></div>
+
+<script>
+let L='de';
+const $=s=>document.querySelector(s);
+const T=o=>(o&&(o[L]??o.de))||'';
+const ION_WA=''; // optional: Ions WhatsApp-Nr (z.B. '4915123456789'), leer = Kontakt selbst wählen
+
+const SECTIONS=[
+ {id:'you', icon:'👤', q:{de:'Kurz zu dir',en:'A bit about you'}, sub:{de:'Wie & wie oft reist du? (alles antippen, was passt)',en:'How & how often do you travel? (tap all that fit)'},
+  opts:[
+   {id:'y_family',de:'meist mit Familie',en:'mostly family'},{id:'y_friends',de:'Freundesgruppe',en:'friend group'},
+   {id:'y_partner',de:'zu zweit',en:'as a couple'},{id:'y_solo',de:'solo',en:'solo'},
+   {id:'y_adv',de:'Typ Abenteuer',en:'adventure type'},{id:'y_chill',de:'Typ Erholung/Chill',en:'relax/chill type'},
+   {id:'y_culture',de:'Kultur',en:'culture'},{id:'y_nature',de:'Natur',en:'nature'},
+   {id:'y_retreat',de:'spirituell/Retreat',en:'spiritual/retreat'},{id:'y_budget',de:'Budget/Backpacking',en:'budget/backpacking'},
+   {id:'y_often',de:'reise oft (4+/Jahr)',en:'travel often (4+/yr)'},{id:'y_rare',de:'eher selten',en:'rather rarely'}],
+  ft:{de:'Sonst noch was zu deinem Reisestil?',en:'Anything else about your travel style?'}},
+
+ {id:'pain', icon:'😤', q:{de:'Was nervt dich am MEISTEN beim Reiseplanen?',en:'What annoys you MOST when planning trips?'}, sub:{de:'Gruppen-/Familienreisen — tipp alles an, was du kennst',en:'Group/family trips — tap all you recognise'},
+  opts:[
+   {id:'p_budget',de:'💶 Budget/Wer-zahlt-was unklar',en:'💶 budget/who-pays unclear'},
+   {id:'p_diff',de:'🙃 jede:r will was anderes',en:'🙃 everyone wants something different'},
+   {id:'p_one',de:'😮‍💨 eine:r plant alles allein',en:'😮‍💨 one person plans it all'},
+   {id:'p_tools',de:'🪟 zu viele Tools/Tabs',en:'🪟 too many tools/tabs'},
+   {id:'p_research',de:'🌀 Recherche-Overload, keine Kohärenz',en:'🌀 research overload, no coherence'},
+   {id:'p_fiction',de:'💸 unrealistische Pläne/Budget-Fiktion',en:'💸 unrealistic plans/budget fiction'},
+   {id:'p_booking',de:'🧾 Buchungs-Chaos',en:'🧾 booking chaos'},
+   {id:'p_forgot',de:'🐾 Hund/Kind/Diät vergessen',en:'🐾 dog/kid/diet forgotten'},
+   {id:'p_touri',de:'📸 Standard-Touri statt echte Erlebnisse',en:'📸 standard tourist, not real experiences'}],
+  ft:{de:'Was nervt dich sonst? (Freitext)',en:'What else annoys you? (free text)'}},
+
+ {id:'feat', icon:'✨', q:{de:'Welche Funktionen fändest du SUPER spannend?',en:'Which features would you find SUPER exciting?'}, sub:{de:'Tipp alles an, was dich zieht',en:'Tap everything that appeals to you'},
+  opts:[
+   {id:'f_budget',de:'💶 Ehrliches Budget mit Wer-zahlt-was',en:'💶 honest budget with who-pays'},
+   {id:'f_plan',de:'🧩 alle Wünsche → ein stimmiger Plan',en:'🧩 all wishes → one coherent plan'},
+   {id:'f_match',de:'🔗 Matchmaking: wer macht was mit wem',en:'🔗 matchmaking: who does what with whom'},
+   {id:'f_real',de:'🪞 Reality-Check (warnt vor Budget-Fiktion)',en:'🪞 reality-check (warns of budget fiction)'},
+   {id:'f_ai',de:'🤖 KI baut den Tagesplan',en:'🤖 AI builds the day plan'},
+   {id:'f_filter',de:'🐾 Hund/Kind/Diät/Termine als harte Filter',en:'🐾 dog/kid/diet/dates as hard filters'},
+   {id:'f_local',de:'🗺️ lokale Insider-Erlebnisse statt Standard',en:'🗺️ local insider experiences, not standard'},
+   {id:'f_pack',de:'🧳 Auto-Packliste + Logistik + Recht',en:'🧳 auto packing list + logistics + legal'},
+   {id:'f_async',de:'👯 gemeinsam async ausfüllen',en:'👯 fill in together, asynchronously'},
+   {id:'f_save',de:'💸 Spar-Hebel & Geldquellen-Logik',en:'💸 saving levers & funding logic'},
+   {id:'f_lang',de:'🌐 mehrsprachig',en:'🌐 multilingual'},
+   {id:'f_privacy',de:'🔒 Privatsphäre/Verschlüsselung',en:'🔒 privacy/encryption'}],
+  ft:{de:'Eine Funktion, die du dir wünschst und die hier fehlt?',en:'A feature you wish for that is missing here?'}},
+
+ {id:'top', icon:'🥇', q:{de:'Deine Top 3',en:'Your top 3'}, sub:{de:'Wenn nur 3 Dinge umgesetzt werden — welche müssen es sein?',en:'If only 3 things get built — which must they be?'}, max:3,
+  opts:[
+   {id:'t_budget',de:'💶 Budget/Wer-zahlt-was',en:'💶 budget/who-pays'},
+   {id:'t_plan',de:'🧩 Wünsche → ein Plan',en:'🧩 wishes → one plan'},
+   {id:'t_match',de:'🔗 Matchmaking',en:'🔗 matchmaking'},
+   {id:'t_real',de:'🪞 Reality-Check',en:'🪞 reality-check'},
+   {id:'t_ai',de:'🤖 KI-Tagesplan',en:'🤖 AI day plan'},
+   {id:'t_local',de:'🗺️ Insider-Erlebnisse',en:'🗺️ insider experiences'},
+   {id:'t_async',de:'👯 gemeinsam ausfüllen',en:'👯 fill in together'},
+   {id:'t_pack',de:'🧳 Logistik/Packen/Recht',en:'🧳 logistics/packing/legal'}],
+  ft:{de:'Warum genau diese 3?',en:'Why exactly these 3?'}},
+
+ {id:'ai', icon:'🤖', q:{de:'Die KI-Frage',en:'The AI question'}, sub:{de:'Was soll die KI können, das reine Google-Recherche NICHT kann?',en:'What should the AI do that plain Google research can NOT?'},
+  opts:[
+   {id:'a_coherent',de:'aus Chaos EINEN kohärenten Plan machen',en:'turn chaos into ONE coherent plan'},
+   {id:'a_reconcile',de:'Wünsche der Gruppe versöhnen',en:'reconcile the group’s wishes'},
+   {id:'a_remember',de:'an meine Constraints erinnern (Budget/Hund/Diät)',en:'remember my constraints (budget/dog/diet)'},
+   {id:'a_honest',de:'ehrlich sein (Gegenpol statt Schönrederei)',en:'be honest (counter-voice, not sugar-coating)'},
+   {id:'a_learn',de:'meinen Geschmack über Zeit lernen',en:'learn my taste over time'},
+   {id:'a_book',de:'wirklich organisieren/buchen, nicht nur vorschlagen',en:'actually organise/book, not just suggest'},
+   {id:'a_local',de:'lokale/echte statt generische Tipps',en:'local/real instead of generic tips'}],
+  ft:{de:'Was wäre dein „Wow, das kann nur KI“-Moment?',en:'What would be your “wow, only AI can do this” moment?'}},
+
+ {id:'magic', icon:'💛', q:{de:'Magie, Bedenken & Nutzung',en:'Magic, concerns & usage'}, sub:{de:'Letzte Fragen — ehrlich, gern auch kritisch',en:'Final questions — honest, critical welcome'},
+  opts:[
+   {id:'u_yes',de:'✅ würde ich sofort nutzen',en:'✅ I would use it right away'},
+   {id:'u_ifgroup',de:'🤝 ja, wenn meine Gruppe mitzieht',en:'🤝 yes, if my group joins in'},
+   {id:'u_maybe',de:'🤔 vielleicht',en:'🤔 maybe'},
+   {id:'u_no',de:'🙅 eher nein',en:'🙅 probably not'},
+   {id:'pay_no',de:'💰 würde nichts zahlen',en:'💰 would not pay'},
+   {id:'pay_pro',de:'💰 für Pro-Features',en:'💰 for pro features'},
+   {id:'pay_trip',de:'💰 einmalig pro Reise',en:'💰 one-off per trip'},
+   {id:'pay_org',de:'💰 als Organizer/Retreat-Tool',en:'💰 as an organiser/retreat tool'}],
+  ft:{de:'Wenn die App EINE Sache perfekt könnte — welche? Und was würde dich abschrecken/nerven?',en:'If the app did ONE thing perfectly — which? And what would put you off / annoy you?'}},
+];
+
+let pick={}; SECTIONS.forEach(s=>pick[s.id]={});
+let ft={}; SECTIONS.forEach(s=>ft[s.id]='');
+let who='';
+
+function render(){
+  $('#sections').innerHTML=SECTIONS.map((s,i)=>{
+    const p=pick[s.id];
+    const hint = s.max ? `<span class="hint">${L==='de'?'max. '+s.max:'max '+s.max}</span>` : '';
+    return `<div class="card">
+      <p class="q"><span class="sec-n">${i+1}</span>${s.icon} ${T(s.q)}${hint}</p>
+      <p class="sub">${T(s.sub)}</p>
+      <div class="opts">${s.opts.map(o=>`<span class="opt ${p[o.id]?'sel':''}" onclick="toggle('${s.id}','${o.id}')">${T(o)}</span>`).join('')}</div>
+      ${s.ft?`<textarea data-ft="${s.id}" oninput="onFt('${s.id}',this.value)" placeholder="${T(s.ft).replace(/"/g,'&quot;')}">${(ft[s.id]||'').replace(/</g,'&lt;')}</textarea>`:''}
+    </div>`;}).join('');
+}
+function toggle(sid,oid){
+  const s=SECTIONS.find(x=>x.id===sid), p=pick[sid];
+  if(!p[oid] && s.max){ const n=Object.keys(p).filter(k=>p[k]).length; if(n>=s.max){ flash(L==='de'?('max. '+s.max+'!'):('max '+s.max+'!')); return; } }
+  p[oid]=!p[oid]; render(); save_silent();
+}
+function onFt(sid,v){ ft[sid]=v; save_silent(); }
+
+function setLang(l){
+  L=l; document.documentElement.lang=l;
+  $('#lang-de').classList.toggle('on',l==='de'); $('#lang-en').classList.toggle('on',l==='en');
+  document.querySelectorAll('[data-de]').forEach(el=>{ el.innerHTML=el.getAttribute('data-'+l)||el.getAttribute('data-de'); });
+  render(); save_silent();
+}
+function optLabel(sid,oid){ const s=SECTIONS.find(x=>x.id===sid); const o=s.opts.find(x=>x.id===oid); return o?T(o):oid; }
+function buildSummary(){
+  who=$('#who').value.trim();
+  let out=(L==='de'?'🧭 KI-Reise-Tool — Feedback':'🧭 AI travel tool — feedback')+(who?(' · '+who):'')+'\n\n';
+  SECTIONS.forEach((s,i)=>{
+    const p=pick[s.id]; const picked=Object.keys(p).filter(k=>p[k]).map(k=>optLabel(s.id,k));
+    const f=(ft[s.id]||'').trim();
+    if(!picked.length && !f) return;
+    out+=(i+1)+'. '+T(s.q)+'\n';
+    if(picked.length) out+='• '+picked.join(' · ')+'\n';
+    if(f) out+='✍️ '+f.replace(/\n/g,' / ')+'\n';
+    out+='\n';
+  });
+  return out;
+}
+async function shareFeedback(){
+  save_silent(); const text=buildSummary();
+  if(navigator.share){ try{ await navigator.share({title:(L==='de'?'KI-Reise-Tool Feedback':'AI travel tool feedback'),text}); flash(L==='de'?'✅ geteilt':'✅ shared'); return; }catch(e){ if(e&&e.name==='AbortError')return; } }
+  const base=ION_WA?('https://wa.me/'+ION_WA+'?text='):'https://wa.me/?text=';
+  window.open(base+encodeURIComponent(text),'_blank'); flash(L==='de'?'📱 WhatsApp öffnet…':'📱 opening WhatsApp…');
+}
+async function copyFeedback(){ const t=buildSummary();
+  try{ await navigator.clipboard.writeText(t); flash(L==='de'?'📋 Kopiert! In WhatsApp/Chat einfügen.':'📋 Copied! Paste into WhatsApp/chat.'); }
+  catch(e){ window.prompt(L==='de'?'Markieren & kopieren:':'Select & copy:', t); } }
+function downloadJSON(){ const b=new Blob([JSON.stringify(collect(),null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='ki-reise-feedback.json'; a.click(); flash(L==='de'?'📤 Datei erstellt':'📤 file created'); }
+
+const KEY='ki-reise-umfrage-2026';
+function collect(){ return {L,who:$('#who').value,pick,ft}; }
+function apply(s){ if(!s)return;
+  if(s.who)$('#who').value=s.who;
+  if(s.pick)SECTIONS.forEach(x=>{ if(s.pick[x.id])pick[x.id]=s.pick[x.id]; });
+  if(s.ft)ft=Object.assign(ft,s.ft);
+  if(s.L&&s.L!==L){setLang(s.L);} else {render();} }
+function save_silent(){ try{localStorage.setItem(KEY,JSON.stringify(collect()));}catch(e){} }
+function saveState(){ save_silent(); flash(L==='de'?'💾 Gesichert':'💾 Saved'); }
+function flash(t){ $('#msg').textContent=t; setTimeout(()=>{$('#msg').textContent='';},1600); }
+
+render();
+$('#who').addEventListener('input',save_silent);
+try{const s=JSON.parse(localStorage.getItem(KEY)); if(s)apply(s);}catch(e){}
+</script>
+</body>
+</html>
