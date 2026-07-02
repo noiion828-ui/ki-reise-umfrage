@@ -5,53 +5,55 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Umfrage · KI-Reise-Tool — deine Meinung</title>
 <style>
-  :root{--c1:#6a5cff;--c2:#2bd1c4;--c3:#ff6f91;--c4:#ffb86c;
-    --ink:#26203a;--mut:#6b6386;--card:#fff;--line:#ece7f6;--bg1:#f3f0ff;--bg2:#eafbf8}
+  :root{
+    --c1:#ff6f91; --c2:#ffb86c; --c3:#2bd1c4; --c4:#7c5cff; --c5:#ffd23f;
+    --ink:#2a1f3d; --mut:#6b5e83; --card:#ffffff; --line:#f0e6f5;
+  }
   *{box-sizing:border-box}
   body{margin:0;font:16px/1.6 system-ui,'Segoe UI',sans-serif;color:var(--ink);
-    background:linear-gradient(165deg,var(--bg1),#fdf3f1 55%,var(--bg2));min-height:100vh;padding:0 0 120px}
+    background:linear-gradient(160deg,#fff0f3 0,#fef6e9 35%,#e8fbf8 100%);min-height:100vh;padding:0 0 120px}
   .wrap{max-width:740px;margin:0 auto;padding:18px}
-  header.hero{background:linear-gradient(135deg,var(--c1),var(--c3) 60%,var(--c4));color:#fff;
-    padding:34px 0 30px;text-align:center;border-radius:0 0 26px 26px;box-shadow:0 12px 30px rgba(106,92,255,.25)}
-  h1{font-size:27px;margin:0 0 6px}
+  header.hero{background:linear-gradient(135deg,var(--c4),var(--c1) 50%,var(--c2));color:#fff;
+    padding:34px 0 30px;text-align:center;border-radius:0 0 28px 28px;box-shadow:0 10px 30px rgba(124,92,255,.25)}
+  h1{font-size:27px;margin:0 0 6px;letter-spacing:-.5px}
   .hsub{font-size:14.5px;opacity:.95;margin:0}
   .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px;margin:14px 0;
-    box-shadow:0 6px 18px rgba(106,92,255,.06)}
-  .intro{background:linear-gradient(135deg,#fff,#f7f4ff);border:2px dashed var(--c1)}
-  .sec-n{display:inline-flex;width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--c1),var(--c2));
+    box-shadow:0 6px 20px rgba(124,92,255,.07)}
+  .intro{background:linear-gradient(135deg,#fff,#fef6ff);border:2px dashed var(--c4)}
+  .sec-n{display:inline-flex;width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--c1),var(--c4));
     color:#fff;font-weight:800;align-items:center;justify-content:center;font-size:13px;margin-right:8px}
-  .q{font-weight:800;font-size:17px;margin:0 0 2px}
-  .ls{font-size:11px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--c3),var(--c1));
+  .q{font-weight:800;font-size:17px;margin:0 0 2px;color:var(--c4)}
+  .ls{font-size:11px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--c1),var(--c4));
     border-radius:6px;padding:2px 8px;margin-left:6px;vertical-align:middle;letter-spacing:.2px}
   .sub{font-size:13.5px;color:var(--mut);margin:0 0 10px}
-  .blab{font-weight:700;font-size:14px;margin:12px 0 5px;color:#43395f}
+  .blab{font-weight:700;font-size:14px;margin:12px 0 5px;color:var(--ink)}
   .opts{display:flex;gap:8px;flex-wrap:wrap}
   .opt{padding:8px 14px;border-radius:999px;border:2px solid var(--line);background:#fff;cursor:pointer;
     font-size:14px;font-weight:600;color:var(--mut);transition:.14s;user-select:none}
-  .opt:hover{border-color:var(--c2);transform:translateY(-1px)}
-  .opt.sel{background:linear-gradient(135deg,var(--c1),var(--c2));border-color:transparent;color:#fff;
-    box-shadow:0 4px 12px rgba(43,209,196,.3);transform:translateY(-1px) scale(1.02)}
+  .opt:hover{border-color:var(--c3);transform:translateY(-1px)}
+  .opt.sel{background:linear-gradient(135deg,var(--c3),var(--c4));border-color:transparent;color:#fff;
+    box-shadow:0 4px 14px rgba(43,209,196,.35);transform:translateY(-1px) scale(1.02)}
   .opt.sel::before{content:"✓ "}
   textarea,input.txt{width:100%;background:#fff;color:var(--ink);border:2px solid var(--line);border-radius:13px;
     padding:11px;font:15px system-ui;resize:vertical}
   textarea{min-height:52px;margin-top:6px}
   textarea.big{min-height:96px}
-  textarea:focus,input.txt:focus{outline:none;border-color:var(--c2)}
-  textarea::placeholder{color:#b3abce;font-style:italic}
-  .hint{display:inline-block;font-size:11.5px;font-weight:700;color:var(--c1);background:#f0edff;border-radius:6px;padding:1px 7px;margin-left:6px}
+  textarea:focus,input.txt:focus{outline:none;border-color:var(--c3)}
+  textarea::placeholder{color:#bcb3cf;opacity:.85;font-style:italic}
+  .hint{display:inline-block;font-size:11.5px;font-weight:700;color:var(--c4);background:#f2edff;border-radius:6px;padding:1px 7px;margin-left:6px}
   .langbtn{display:inline-flex;border:2px solid #fff;border-radius:12px;overflow:hidden;margin-top:12px}
   .langbtn button{background:rgba(255,255,255,.25);color:#fff;border:none;padding:5px 14px;cursor:pointer;font-weight:800;font-size:13px}
-  .langbtn button.on{background:#fff;color:var(--c1)}
-  .savebar{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.97);backdrop-filter:blur(8px);
+  .langbtn button.on{background:#fff;color:var(--c4)}
+  .savebar{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
     border-top:1px solid var(--line);z-index:50}
   .savebar .inner{max-width:740px;margin:0 auto;padding:11px 16px;display:flex;gap:9px;align-items:center;flex-wrap:wrap}
   .btn{border:none;border-radius:12px;padding:11px 16px;font-weight:800;cursor:pointer;font-size:14px;color:#fff;
-    background:linear-gradient(135deg,var(--c1),var(--c3));box-shadow:0 4px 12px rgba(106,92,255,.28)}
+    background:linear-gradient(135deg,var(--c1),var(--c4));box-shadow:0 4px 14px rgba(124,92,255,.3)}
   .btn.wa{background:linear-gradient(135deg,#25D366,#128C7E)}
-  .btn.ghost{background:#fff;color:var(--c1);border:2px solid var(--line);box-shadow:none}
-  .msg{font-weight:800;color:var(--c2)}
+  .btn.ghost{background:#fff;color:var(--c4);border:2px solid var(--line);box-shadow:none}
+  .msg{font-weight:800;color:var(--c3)}
   .heart{font-size:13px;color:var(--mut);text-align:center;margin-top:18px}
-  label.fld{font-weight:700;font-size:14px;display:block;margin:0 0 5px}
+  label.fld{font-weight:800;font-size:14px;display:block;margin:0 0 5px;color:var(--c1)}
 </style>
 </head>
 <body>
